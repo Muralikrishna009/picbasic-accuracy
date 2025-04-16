@@ -1,15 +1,15 @@
 # Detailed Evaluation: Claude-3.7-sonnet - Order Entry
 
-## Functional Accuracy: 38/40
+## Functional Accuracy: 36/40
 
-- Core Logic: 19/20
+- Core Logic: 18/20
 
   - Excellent preservation of the core business logic
   - All major functions (customer lookup, product display, etc.) are properly implemented
   - Handling of user input and validation follows the original closely
   - Data flow matches the original with appropriate modernization
 
-- Control Flow: 10/10
+- Control Flow: 9/10
 
   - All conditional statements are correctly converted
   - GOSUB routines elegantly transformed into object methods
@@ -22,16 +22,16 @@
   - Input/output operations work as expected with appropriate modernization
   - Data validation is preserved and enhanced
 
-## Structural Adaptation: 30/30
+## Structural Adaptation: 28/30
 
-- Language Paradigm Adaptation: 15/15
+- Language Paradigm Adaptation: 14/15
 
   - Exceptional transformation from procedural PICBASIC to object-oriented Python
   - Appropriate use of classes with data classes for structured data
   - Global variables properly encapsulated in class attributes
   - Logical organization of routines into class methods
 
-- Modern Programming Practices: 10/10
+- Modern Programming Practices: 9/10
 
   - Excellent use of Python data structures (dataclasses, dictionaries)
   - Clean implementation of object-oriented programming
@@ -44,7 +44,7 @@
   - Defensive programming techniques throughout
   - Consistent approach to error conditions
 
-## Code Quality: 20/20
+## Code Quality: 19/20
 
 - Readability: 5/5
 
@@ -60,7 +60,7 @@
   - Low coupling between components
   - Extensible design that could easily accommodate new features
 
-- Efficiency: 5/5
+- Efficiency: 4/5
 
   - Appropriate algorithm choices
   - No unnecessary operations
@@ -73,9 +73,9 @@
   - Comments explaining complex logic where needed
   - Well-structured code that is self-documenting
 
-## Additional Features: 10/10
+## Additional Features: 9/10
 
-- Enhanced Functionality: 5/5
+- Enhanced Functionality: 4/5
 
   - Added clear screen functionality
   - Improved data validation
@@ -88,7 +88,7 @@
   - Type hints for improved code quality
   - Clean implementation of Python's string formatting
 
-## Total Score: 98/100
+## Total Score: 92/100
 
 ## General Comments:
 
