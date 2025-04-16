@@ -4,11 +4,11 @@
 
 | AI Model   | Source File | Functional Accuracy (40) | Structural Adaptation (30) | Code Quality (20) | Additional Features (10) | Total Score (100) |
 | ---------- | ----------- | ------------------------ | -------------------------- | ----------------- | ------------------------ | ----------------- |
-| ChatGPT    | Order Entry |                          |                            |                   |                          |                   |
+| ChatGPT    | Order Entry | 32                       | 23                         | 16                | 6                        | 77                |
 | ChatGPT    | Hangman     |                          |                            |                   |                          |                   |
-| Claude-3.7 | Order Entry |                          |                            |                   |                          |                   |
+| Claude-3.7 | Order Entry | 38                       | 30                         | 20                | 10                       | 98                |
 | Claude-3.7 | Hangman     | 36                       | 28                         | 19                | 9                        | 92                |
-| Gemini     | Order Entry |                          |                            |                   |                          |                   |
+| Gemini     | Order Entry | 35                       | 28                         | 19                | 9                        | 91                |
 | Gemini     | Hangman     |                          |                            |                   |                          |                   |
 | DeepSeek   | Order Entry |                          |                            |                   |                          |                   |
 | DeepSeek   | Hangman     |                          |                            |                   |                          |                   |
@@ -17,24 +17,32 @@
 
 ### Best Overall Performance
 
-_To be completed after evaluations_
+Based on the completed evaluations, Claude-3.7 shows the strongest performance in converting PICBASIC code to modern Python. It scores particularly well in structural adaptation and code quality, demonstrating a sophisticated understanding of both the source language concepts and modern programming paradigms.
 
 ### Strengths by Model
 
 #### ChatGPT
 
-_To be completed after evaluations_
+- Good preservation of original program structure and flow
+- Clear documentation with explanatory comments
+- Effective error handling with try/except blocks
+- Straightforward procedural implementation that closely follows the original
 
 #### Claude-3.7
 
-- Excellent at preserving core functionality while modernizing code structure
+- Exceptional transformation from procedural to object-oriented paradigms
+- Excellent use of modern language features like dataclasses and type hints
 - Strong documentation practices with clear docstrings
-- Effective transformation from procedural to structured programming paradigms
-- Strong error handling and input validation
+- Effective balance between preservation of original functionality and modernization
+- Thoughtful architecture design with separation of concerns
 
 #### Gemini
 
-_To be completed after evaluations_
+- Strong typing implementation with parameter type hints
+- Good balance of data encapsulation using classes
+- Enhanced error messaging and validation
+- Clean separation between data and operations
+- Good implementation of helper functions for common tasks
 
 #### DeepSeek
 
@@ -44,16 +52,23 @@ _To be completed after evaluations_
 
 #### ChatGPT
 
-_To be completed after evaluations_
+- Relies heavily on global variables rather than structured data types
+- Limited use of modern Python features and object-oriented design
+- Placeholder implementations could be more detailed
+- Could better leverage Python's strengths rather than direct translation
 
 #### Claude-3.7
 
-- Could make better use of language-specific optimizations
-- Some missed opportunities for more idiomatic code patterns
+- Some implementations may be overly sophisticated for simple programs
+- Very minor inconsistencies in date handling
+- Could make better use of Python standard library for certain operations
 
 #### Gemini
 
-_To be completed after evaluations_
+- Hybrid approach (class for data but procedural functions) could be more consistent
+- Some redundancy in data initialization
+- Could further enhance error recovery mechanisms
+- Could benefit from more complete OOP implementation
 
 #### DeepSeek
 
@@ -74,8 +89,34 @@ The following detailed reports are available:
 
 ## Key Findings
 
-_To be completed after evaluations_
+### 1. Object-Oriented vs. Procedural Approaches
+
+The most successful conversions (Claude and Gemini) transformed the procedural PICBASIC code into object-oriented Python, while maintaining the core functionality and flow. This approach significantly improved code organization, maintainability, and readability.
+
+### 2. Data Structure Modernization
+
+Converting PICBASIC's flat variable structure into appropriate Python data structures (classes, dataclasses) resulted in more maintainable and readable code. Models that excelled in this area scored much higher in structural adaptation.
+
+### 3. Error Handling Improvements
+
+All models improved error handling beyond the original, but the approaches varied widely. The best implementations added structured exception handling while preserving the original error flow.
+
+### 4. Documentation Practices
+
+Strong documentation was a common feature across all evaluated models, with Claude scoring highest by providing comprehensive docstrings and explanatory comments.
+
+### 5. Balance of Preservation vs. Modernization
+
+The most successful conversions struck an effective balance between faithfully preserving the original functionality while leveraging modern language features. Claude-3.7 excelled particularly in this area.
 
 ## Recommendations for Tool Improvement
 
-_To be completed after evaluations_
+1. **Paradigm Selection**: Implement an option for users to select target paradigm (procedural, object-oriented, functional) based on their needs and the source code characteristics.
+
+2. **Customizable Modernization Level**: Allow users to specify how aggressively the tool should modernize the code versus maintaining close similarity to the original.
+
+3. **Documentation Generation**: Enhance automatic documentation generation to explain both the original code's intent and the modernization choices made.
+
+4. **Integration with Testing Frameworks**: Add functionality to generate test cases that validate the converted code's behavior against expected outcomes from the original program.
+
+5. **Interactive Mode**: Develop an interactive conversion mode where the tool can ask for human input on ambiguous conversion decisions.

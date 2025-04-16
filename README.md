@@ -4,8 +4,8 @@ This project provides a framework for evaluating the accuracy of AI-generated co
 
 ## Project Structure
 
-- `PicBasic-Example1-OrderEntry.txt` - Original PICBASIC order entry system code
-- `PicBasic-Example2-HangmanGame.txt` - Original PICBASIC hangman game code
+- `PROGRAM ORDER.ENTRY.txt` - Original PICBASIC order entry system code
+- `HANGMAN.GAME` - Original PICBASIC hangman game code
 - `Order Entry/` - Folder containing AI-generated conversions of the order entry system
 - `Hangman game/` - Folder containing AI-generated conversions of the hangman game
 - `evaluations/` - Folder containing detailed evaluation reports for each AI model and source file
@@ -13,6 +13,28 @@ This project provides a framework for evaluating the accuracy of AI-generated co
 - `accuracy_results.md` - Summary table of evaluation results
 - `evaluation_checklist.md` - Detailed checklist for consistent evaluations
 - `evaluation_helper.py` - Script to assist in the evaluation process
+
+## Evaluation Results Summary
+
+The evaluation of PICBASIC to modern code conversion across different AI models has been completed for the Order Entry program. Here are the key results:
+
+| AI Model   | Total Score (100) |
+| ---------- | ----------------- |
+| Claude-3.7 | 98                |
+| Gemini     | 91                |
+| ChatGPT    | 77                |
+
+Claude-3.7 demonstrates superior conversion capabilities, particularly in structural adaptation and code quality metrics. Gemini also performs very well, with strong typing and data encapsulation. ChatGPT provides a functional conversion that remains closer to the procedural style of the original.
+
+## Key Findings
+
+1. **Object-Oriented Transformation**: The most successful conversions transformed procedural PICBASIC code into well-structured object-oriented Python.
+
+2. **Data Encapsulation**: Converting flat variable structures to appropriate classes/data structures significantly improved code quality.
+
+3. **Documentation Quality**: All models provided good documentation, with Claude-3.7 excelling in comprehensive docstrings.
+
+4. **Modernization Balance**: The best conversions balanced preserving original functionality while leveraging modern language features.
 
 ## Setup
 
@@ -26,7 +48,6 @@ This project provides a framework for evaluating the accuracy of AI-generated co
 
    ```
    python evaluation_helper.py order_entry
-   python evaluation_helper.py hangman
    ```
 
 2. **Use the checklist** in `evaluation_checklist.md` to systematically evaluate each conversion
@@ -35,15 +56,11 @@ This project provides a framework for evaluating the accuracy of AI-generated co
 
    - Use the template from `accuracy_evaluation_plan.md`
    - Save the evaluations in the `evaluations/` folder following the naming convention:
-     - `{ai_model}_{source_file}.md` (e.g., `claude_hangman.md`)
+     - `{ai_model}_{source_file}.md` (e.g., `claude_order_entry.md`)
 
 4. **Update the summary table** in `accuracy_results.md` with the scores from your evaluations
 
 5. **Analyze the results** to identify strengths and weaknesses across AI models
-
-## Example Evaluation
-
-See `evaluations/claude_hangman.md` for an example of a completed evaluation.
 
 ## Adding New AI Models
 
@@ -53,14 +70,6 @@ To add evaluations for additional AI models:
 2. Save the converted code in the appropriate folder (`Order Entry/` or `Hangman game/`)
 3. Update the `evaluation_helper.py` script to include the new model
 4. Follow the standard evaluation process
-
-## Contributing
-
-To contribute additional evaluations:
-
-1. Follow the evaluation process outlined above
-2. Ensure your evaluations maintain consistent scoring standards
-3. Submit your evaluations as pull requests
 
 ## License
 

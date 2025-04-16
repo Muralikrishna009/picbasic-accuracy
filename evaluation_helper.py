@@ -195,14 +195,14 @@ def main():
     example = sys.argv[1].lower()
     
     if example == 'order_entry':
-        original_file = 'PicBasic-Example1-OrderEntry.txt'
+        original_file = 'PROGRAM ORDER.ENTRY.txt'
         converted_files = {
             'ChatGPT': 'Order Entry/ChatGPT.py',
             'Claude-3.7': 'Order Entry/Claude-3.7-sonnet.py',
             'Gemini': 'Order Entry/Gemini.py'
         }
     elif example == 'hangman':
-        original_file = 'PicBasic-Example2-HangmanGame.txt'
+        original_file = 'HANGMAN.GAME'
         converted_files = {
             'ChatGPT': 'Hangman game/ChatGPT.py',
             'Claude-3.7': 'Hangman game/Claude-3.7-sonnet.py'
