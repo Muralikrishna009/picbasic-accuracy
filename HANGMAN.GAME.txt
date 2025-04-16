@@ -1,0 +1,168 @@
+PROGRAM HANGMAN.GAME
+*
+PROMPT ""
+*
+GOSUB INITIALIZE.GAME
+GOSUB SHOW.GAME.SCREEN
+GOSUB GAME.LOOP
+*
+IF WRONG.GUESSES = MAX.GUESSES THEN
+  CRT @(0,15) : "Sorry, you ran out of attempts."
+  CRT @(0,16) : "The mystery word was '" : MYSTERY.WORD : "'"
+END ELSE
+  CRT @(0,15) : "Congratulations! You found the word!"
+END
+
+RETURN
+*
+***************************************************************************************************
+INITIALIZE.GAME: ;* INITIALIZE GAME VARIABLES
+***************************************************************************************************
+CRT @(-1)   
+*
+WORD.LIST = ""
+WORD.LIST<-1> = 'COMPLY'
+WORD.LIST<-1> = 'THREE'
+WORD.LIST<-1> = 'VACATION'
+WORD.LIST<-1> = 'INFORMATION'
+WORD.LIST<-1> = 'TECHNOLOGY'
+WORD.LIST<-1> = 'ORLANDO'
+WORD.LIST<-1> = 'COMPUTER'
+WORD.LIST<-1> = 'ROUTER'
+WORD.LIST<-1> = 'PRINTER'
+WORD.LIST<-1> = 'BUDGE'
+WORD.LIST<-1> = 'SOFTWARE'
+WORD.LIST<-1> = 'HARDWARE'
+WORD.LIST<-1> = 'OBJECTIVE'
+WORD.LIST<-1> = 'FILE'
+WORD.LIST<-1> = 'EMPLOYEE'
+WORD.LIST<-1> = 'SECURITY'
+WORD.LIST<-1> = 'DATA'
+WORD.LIST<-1> = 'REPORT'
+WORD.LIST<-1> = 'PROPERTY'
+WORD.LIST<-1> = 'OWNERSHIP'
+*
+ATTEMPTED.LETTERS = ""
+WRONG.GUESSES     = 0
+HANGMAN.DISPLAY   = ""
+CORRECT.GUESSES   = 0
+MAX.GUESSES       = 7
+*
+WORD.COUNT   = DCOUNT(WORD.LIST,@AM)
+WORD.INDEX   = RND(WORD.COUNT) + 1
+MYSTERY.WORD = WORD.LIST<WORD.INDEX>
+*  
+RETURN
+*
+***************************************************************************************************
+SHOW.GAME.SCREEN: ;* DISPLAY GAME SCREEN
+***************************************************************************************************
+* 
+CRT @(0,1) : "Welcome to Hangman! You have seven attempts to uncover the mystery word."
+CRT @(0,3) : STR('_', LEN(MYSTERY.WORD))                        ;* Display underscores for the word
+CRT @(0,4) : "Guess a letter  : "
+CRT @(0,6) : "Attempted letters: "
+*
+RETURN
+*
+***************************************************************************************************
+GAME.LOOP: ;* MAIN GAME LOOP
+***************************************************************************************************
+* 
+LOOP
+UNTIL WRONG.GUESSES = MAX.GUESSES OR CORRECT.GUESSES = LEN(MYSTERY.WORD)
+  GOSUB GET.LETTER.INPUT
+  GOSUB PROCESS.LETTER
+*  
+REPEAT
+*
+RETURN
+*
+***************************************************************************************************
+GET.LETTER.INPUT: ;* GET USER LETTER INPUT
+***************************************************************************************************
+CRT @(18,4) : STR(' ',100)                                                
+CRT @(18,4) : ; INPUT PLAYER.LETTER
+CRT @(0,5)  : STR(' ',50)
+*
+IF LEN(PLAYER.LETTER) > 1 THEN
+  CRT @(0,5) : "'" : PLAYER.LETTER : "' has more than one character."
+  GOTO GET.LETTER.INPUT
+END
+*
+PLAYER.LETTER = UPCASE(PLAYER.LETTER)
+IF PLAYER.LETTER MATCH "1A" ELSE
+  CRT @(0,5) : "'" : PLAYER.LETTER : "' is not a valid letter."
+  GOTO GET.LETTER.INPUT
+END
+*
+LOCATE PLAYER.LETTER IN ATTEMPTED.LETTERS<1> SETTING LETTER.POS THEN
+  CRT @(0,5) : PLAYER.LETTER : " was already guessed."
+  GOTO GET.LETTER.INPUT
+END ELSE
+  ATTEMPTED.LETTERS<-1> = PLAYER.LETTER
+  CRT @(18+LEN(ATTEMPTED.LETTERS),6) : PLAYER.LETTER
+END
+*
+RETURN
+*
+***************************************************************************************************
+PROCESS.LETTER: ;* PROCESS USER LETTER INPUT
+***************************************************************************************************
+* Check if letter exists in mystery word
+POSITION = INDEX(MYSTERY.WORD, PLAYER.LETTER,1)
+*
+IF POSITION > 0 THEN
+  CRT @(POSITION-1,3) : PLAYER.LETTER
+  CORRECT.GUESSES += 1
+  INDEX.COUNTER = 2
+*
+  LOOP 
+    POSITION = INDEX(MYSTERY.WORD, PLAYER.LETTER, INDEX.COUNTER)
+  WHILE POSITION > 0
+    CRT @(POSITION-1,3) : PLAYER.LETTER
+    CORRECT.GUESSES += 1
+    INDEX.COUNTER = INDEX.COUNTER + 1
+  REPEAT
+*
+END ELSE
+  WRONG.GUESSES += 1
+  GOSUB DRAW.HANGMAN:
+  REMAINING.GUESS = MAX.GUESSES - WRONG.GUESSES
+  CRT @(0,5) : PLAYER.LETTER : " is incorrect. Remaining attempts: " : REMAINING.GUESS
+END
+*
+RETURN
+*
+***************************************************************************************************
+DRAW.HANGMAN: ;* DRAW HANGMAN DISPLAY
+***************************************************************************************************
+*
+IF WRONG.GUESSES = 1 THEN
+  PRINT @(1,8)  : "  _______"
+  PRINT @(1,9)  : "  |     |"
+  PRINT @(1,10) : "  |     |"
+  PRINT @(1,11) : "  |     |"
+  PRINT @(1,12) : "  |     |"
+  PRINT @(1,13) : "  |     |"
+  PRINT @(1,14) : " _|_____|_"
+END
+* Build the hangman progressively at specific locations
+BEGIN CASE
+  CASE WRONG.GUESSES = 1
+    PRINT @(6,8) : "O"                   ;* Head at row 3, column 5
+  CASE WRONG.GUESSES = 2
+    PRINT @(6,9) : "|"                   ;* Body
+  CASE WRONG.GUESSES = 3
+    PRINT @(5,10) : "/"                  ;* Left arm
+  CASE WRONG.GUESSES = 4
+    PRINT @(7,10) : "\"                  ;* Right arm
+  CASE WRONG.GUESSES = 5
+    PRINT @(6,11) : "|"                  ;* Lower body
+  CASE WRONG.GUESSES = 6
+    PRINT @(5,12) : "/"                  ;* Left leg
+  CASE WRONG.GUESSES = 7
+    PRINT @(7,12) : "\"                  ;* Right leg (Game Over)
+END CASE
+*
+RETURN

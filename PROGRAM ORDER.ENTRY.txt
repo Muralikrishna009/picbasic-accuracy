@@ -1,0 +1,150 @@
+PROGRAM ORDER.ENTRY
+* Author : Usama Husain
+* Date   : 10-10-2024
+* Ticket : --
+*
+*
+***************************************************************************************************
+Changes: 
+***************************************************************************************************
+*GOSUB OPEN.FILES
+GOSUB INIT.VARS 
+GOSUB DISPLAY.SCR
+GOSUB GET.USER.INPUT
+*GOSUB SAVE.ORDER
+*
+RETURN
+*
+***************************************************************************************************
+OPEN.FILES: 
+***************************************************************************************************
+*
+RETURN
+*
+***************************************************************************************************
+INIT.VARS: 
+***************************************************************************************************
+CUST.NO = "##############"
+CUST.NAME = ""
+CUST.DATE = "DD/MM/YYYY"
+CURR_BAL = ""
+AMT_DUE = ""
+PROD.NO = "############"
+PROD.PRICE=""
+PROD.QTY=""
+PROD.NAME=""
+PROD.FEATURES=""
+CLIENT.NO = "############"
+CLIENT.NAME=""
+ORDER.NO="############"
+ORDER.QTY=""
+ORDER.PRICE=""
+ORDER.DATE="DD/MM/YYYY"
+COMPANY=""
+ADDRESS=""
+PHONE.NO=""
+*
+RETURN
+
+*
+***************************************************************************************************
+DISPLAY.SCR: 
+***************************************************************************************************
+CRT @(-1)
+CRT @(0,1):STR('*',100)
+CRT @(0,2):"*":STR(' ',40):"ORDER ENTRY SCREEN":STR(' ',40):"*"
+CRT @(0,3):STR('*',100)
+CRT @(0,4):"CUST#:":CUST.NO"L#40":"CUSTOMER NAME:":CUST.NAME"L#25":"Date:":CUST.DATE"L#10"
+CRT @(0,6):"CURR BALANCE:":CURR_BAL
+CRT @(0,7):"AMT DUE     :":AMT_DUE
+CRT @(0,9):STR('*',100)
+CRT @(0,10):"PRODUCT:":PROD.NO"L#38":"PRICE:":PROD.PRICE"L#29":"QUANTITY:":PROD.QTY"L#10"
+CRT @(0,12):"PRODUCT NAME:":PROD.NAME
+CRT @(0,14):"FEATURES    :"PROD.FEATURES
+CRT @(0,16):STR('*',100)
+CRT @(0,17):"CLIENT NO : ":CLIENT.NO"L#63":"NAME:":CLIENT.NAME"L#20"
+CRT @(0,19):"ORDER     : ":ORDER.NO"L#34":"QTY:":ORDER.QTY"L#36":"PRICE:":ORDER.PRICE"L#10"
+CRT @(0,20):"ORDER DATE: ":ORDER.DATE
+CRT @(0,22):"COMPANY   :  ":COMPANY
+CRT @(0,23):"ADDRESS   :  ":ADDRESS
+CRT @(0,24):"PHONE NO  :  ":PHONE.NO
+CRT @(0,28):STR('*',100)
+CRT @(0,30):"OPTIONS: F-Save, X-Exit"
+CRT @(0,32):STR('*',100)
+RETURN
+*
+
+***************************************************************************************************
+GET.USER.INPUT: 
+***************************************************************************************************
+10: 
+CRT @(6,4): ;INPUT CUST.NO
+*INPUT @(4,11): CUST.NO
+IF CUST.NO = "END" THEN
+  STOP
+END
+IF CUST.NO = "" THEN 
+  GOSUB DISPLAY.ERROR
+  GOTO 10
+END
+  *CRT @(6,4):CUST.NO"L#40"
+GOSUB CUST.DISPLAY
+11: 
+CRT @(0,35):"Enter Product ID: "
+INPUT @(20,35) PROD.NO
+IF PROD.NO = "" THEN 
+  GOSUB DISPLAY.ERROR
+  GOTO 11
+END
+  *CRT @(9,10):PROD.NO"L#40"
+GOSUB PROD.DISPLAY
+RETURN
+*
+
+***************************************************************************************************
+DISPLAY.ERROR: 
+***************************************************************************************************
+CRT @(0,33):"Invalid Input value"
+RETURN
+*
+
+***************************************************************************************************
+CUST.DISPLAY: 
+***************************************************************************************************
+OPEN "CUSTOMER" TO CUST.FILE ELSE STOP
+READ CUST.REC FROM CUST.FILE,CUST.NO THEN
+  CUST.NAME = CUST.REC<1>
+  CUST.DATE = OCONV(CUST.REC<8>,"D4/")
+  CURR_BAL = ""
+  AMT_DUE = ""
+  GOSUB DISPLAY.SCR
+END
+ELSE
+  GOSUB DISPLAY.ERROR
+  GOTO 10
+END
+RETURN
+*
+
+***************************************************************************************************
+PROD.DISPLAY: 
+***************************************************************************************************
+OPEN "INVENTORY" TO PROD.FILE ELSE STOP
+READ PROD.REC FROM PROD.FILE,PROD.NO THEN
+  PROD.PRICE=PROD.REC<7>
+  PROD.QTY=PROD.REC<6>
+  PROD.NAME=PROD.REC<3>
+  PROD.FEATURES=PROD.REC<4>
+  CRT @(8,10):PROD.NO"L#38"
+  CRT @(52,10):PROD.PRICE"L#29"
+  CRT @(88,10):PROD.QTY"L#10"
+  CRT @(13,12):PROD.NAME
+  CRT @(13,14):PROD.FEATURES
+    *GOSUB DISPLAY.SCR
+END
+ELSE
+  GOSUB DISPLAY.ERROR
+  GOTO 11
+END
+RETURN
+
